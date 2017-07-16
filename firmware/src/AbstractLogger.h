@@ -19,7 +19,7 @@ public:
 protected:
     enum class LogLevel
     {
-        Debug,
+        Debug = 0,
         Info,
         Warning,
         Error
