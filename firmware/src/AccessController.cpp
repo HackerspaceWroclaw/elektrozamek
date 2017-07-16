@@ -12,5 +12,6 @@ hswro::elektrozamek::AccessController::onKeyEntered(const std::string &key)
         {
             doorLatch.open();
             sslep(3);
+            doorLatch.close();
         }
 }
