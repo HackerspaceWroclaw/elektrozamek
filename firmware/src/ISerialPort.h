@@ -28,6 +28,7 @@ public:
     virtual size_t write(char* output, size_t size) = 0;
     virtual void flush() = 0;
 
+    virtual void setConfig(int baud, Parity parity, StopBits stopBits) = 0;
     virtual void setBaud(int baud) = 0;
     virtual void setParity(Parity parity) = 0;
     virtual void setStopBits(StopBits stopBits) = 0;
