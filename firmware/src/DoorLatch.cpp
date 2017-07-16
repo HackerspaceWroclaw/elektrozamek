@@ -2,26 +2,42 @@
 
 using namespace ::hswro::elektrozamek;
 
-DoorLatch::DoorLatch(GpioPin gpioPin, ActiveState activeState):
-    gpioPin(gpioPin),
-    activeState(activeState)
+DoorLatch::DoorLatch(AbstractGpioPin &boltOutput, AbstractGpioPin &senseInput, PinPolarity outputPolarity, PinPolarity inputPolarity) :
+    boltOuptut(boltOutput),
+    senseInput(senseInput),
+    outputPolarity(outputPolarity),
+    inputPolarity(inputPolarity)
 {
     close();
-    gpioPin.setMode(GpioPin::Mode::Output);
+    gpioPin.setMode(AbstrGpioPin::Mode::Output);
 }
 
-void DoorLatch::open()
+bool DoorLatch::open()
 {
-    if(activeState == ActiveState::High)
-        gpioPin.turnOn();
+    if(outputPolarity == PinPolarity::ActiveHigh)
+        boltOutput.turnOn();
     else
-        gpioPin.turnOff();
+        boltOutput.turnOff();
+
+    //100ms delay;
+    return isOpen();
 }
 
 void DoorLatch::close()
 {
-    if(activeState == ActiveState::High)
-        gpioPin.turnOff();
+    if(outputPolarity == PinPolarity::ActiveHigh)
+        boltOutput.turnOff();
     else
-        gpioPin.turnOn();
+        boltOutput.turnOn();
+
+    //100ms delay;
+    return !isOpen();
+}
+
+bool DoorLatch::isOpen()
+{
+    if(outputPolarity == PinPolarity::ActiveHigh)
+        return senseInput.isHigh();
+    else
+        return !senseInput.isHigh();
 }

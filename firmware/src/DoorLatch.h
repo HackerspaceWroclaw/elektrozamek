@@ -1,28 +1,30 @@
 #ifndef DOORLATCH_H
 #define DOORLATCH_H
 
-#include "GpioPin.h"
+#include "AbstractGpioPin.h"
 
 namespace hswro {
 namespace elektrozamek {
 
 class DoorLatch
 {
-    enum class ActiveState
+    enum class PinPolarity
     {
-        High,
-        Low
+        ActiveHigh,
+        ActiveLow
     };
 public:
-    DoorLatch(GpioPin gpioPin, ActiveState activeState);
+    DoorLatch(AbstractGpioPin &boltOutput, AbstractGpioPin &senseInput, PinPolarity outputPolarity, PinPolarity inputPolarity);
 
-    void open();
-    void close();
+    bool open();
+    bool close();
+    bool isOpen();
 
 private:
-    GpioPin& gpioPin;
-    ActiveState activeState;
+    AbstractGpioPin& boltOutput, senseInput;
+    PinPolarity outputPolarity, inputPolarity;
 };
+
 }}
 
 #endif // DOORLATCH_H
