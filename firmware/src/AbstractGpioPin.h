@@ -1,17 +1,18 @@
-#ifndef GPIOPIN_H
-#define GPIOPIN_H
+#ifndef ABSTRACTGPIOPIN_H
+#define ABSTRACTGPIOPIN_H
 
 namespace hswro {
 namespace elektrozamek {
 
-class IGpioPin
+class AbstractGpioPin
 {
     enum class Mode
     {
         Input,
         InputWithPullup,
         InputWithPulldown,
-        Output
+        Output,
+        Analog
     };
     enum class State
     {
@@ -20,16 +21,18 @@ class IGpioPin
     };
 
 public:
-    explicit IGpioPin(int ID);
-    void setMode(Mode mode);
-    bool isHigh();
+    AbstractGpioPin();
+    virtual void setMode(Mode mode) = 0;
+    virtual void setState(State state) = 0;
+    virtual bool isHigh() = 0;
+
+    bool operator bool();
     void turnOn();
     void turnOff();
     void toggle();
     void setState(bool isHigh);
-    void setState(State state);
 };
 
 }}
 
-#endif // GPIOPIN_H
+#endif // ABSTRACTGPIOPIN_H
