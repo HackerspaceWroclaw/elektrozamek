@@ -1,8 +1,10 @@
 #ifndef GPIOPIN_H
 #define GPIOPIN_H
 
+namespace hswro {
+namespace elektrozamek {
 
-class GpioPin
+class IGpioPin
 {
     enum class Mode
     {
@@ -18,13 +20,16 @@ class GpioPin
     };
 
 public:
-    explicit GpioPin(int ID);
+    explicit IGpioPin(int ID);
     void setMode(Mode mode);
     bool isHigh();
     void turnOn();
     void turnOff();
+    void toggle();
     void setState(bool isHigh);
     void setState(State state);
 };
+
+}}
 
 #endif // GPIOPIN_H

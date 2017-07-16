@@ -4,10 +4,10 @@
 namespace hswro {
 namespace elektrozamek {
 
-class Logger
+class ILogger
 {
 public:
-    Logger();
+    ILogger();
 
     void debug(const char* format, ...);
     void info(const char* format, ...);

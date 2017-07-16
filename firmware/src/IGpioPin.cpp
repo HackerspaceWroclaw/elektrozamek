@@ -1,4 +1,6 @@
-#include "GpioPin.h"
+#include "IGpioPin.h"
+
+using namespace ::hswro::elektrozamek;
 
 GpioPin::GpioPin(int ID)
 {
