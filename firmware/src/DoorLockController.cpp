@@ -2,8 +2,8 @@
 
 using namespace ::hswro::elektrozamek;
 
-DoorLockController::DoorLockController():
-    logger(),
+DoorLockController::DoorLockController(AbstractLogger logger):
+    logger(logger),
     doorLatch(GpioPin(0), DoorLatch::ActiveState::Low),
     accessController(doorLatch)
 {

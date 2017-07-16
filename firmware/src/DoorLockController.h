@@ -1,7 +1,7 @@
 #ifndef DOORLOCKCONTROLLER_H
 #define DOORLOCKCONTROLLER_H
 
-#include "Logger.h"
+#include "SerialLogger.h"
 #include "AccessController.h"
 
 namespace hswro { namespace elektrozamek {
@@ -9,11 +9,11 @@ namespace hswro { namespace elektrozamek {
 class DoorLockController
 {
 public:
-    DoorLockController();
+    explicit DoorLockController(AbstractLogger& logger);
     void run();
 
 private:
-    Logger logger;
+    AbstractLogger &logger;
     DoorLatch doorLatch;
     AccessController accessController;
 };
